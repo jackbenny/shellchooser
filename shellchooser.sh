@@ -28,7 +28,7 @@ Author="Jack-Benny Persson (jack-benny@cyberinfo.se)"
 Which="/usr/bin/which"
 # Binaries entered in the list will be avalible to the script as variables with
 # the first letter uppercase
-Binaries=(cp printf cat mktemp rm tail dialog)
+Binaries=(clear cp printf cat mktemp rm tail dialog diff)
 
 # Variables
 Skel="/etc/skel"
@@ -64,7 +64,9 @@ chooser()
 	$Dialog --backtitle "Shell Chooser" \
 	--menu "Choose your shell" 10 60 3 "/bin/bash" Bash \
 	"/bin/dash" Dash "/bin/csh" Csh 2> $Temp
-	return $?
+	if [ $? -ne 0 ]; then
+		return 1
+	fi
 	Shell=`$Cat $Temp`
 }
 
@@ -73,11 +75,11 @@ check_env()
 {
 	case $Shell in
 	"/bin/bash")
-		diff ${HOME}/.profile ${Skel}/.profile &> /dev/null
+		$Diff ${HOME}/.profile ${Skel}/.profile &> /dev/null
 		if [ $? -ne 0 ]; then
 			$Cp ${Skel}/.profile ${HOME}
 		fi
-		diff ${HOME}/.bashrc ${Skel}/.bashrc &> /dev/null
+		$Diff ${HOME}/.bashrc ${Skel}/.bashrc &> /dev/null
 		if [ $? -ne 0 ]; then
 			$Cp ${Skel}/.bashrc ${HOME}
 		fi
@@ -124,8 +126,9 @@ if [ $? -ne 0 ]; then
 	echo "Aborting..."
 	exit 1
 fi
-check_env
-`$Shell`
+#check_env
+$Clear
+$Shell
 
 
 exit 0
