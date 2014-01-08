@@ -9,12 +9,11 @@ shellchooser: $(FILES)
 install: $(FILES)
 	chmod 755 shellchooser.sh
 	cp shellchooser.sh /bin/shellchooser.sh
-	cp -r bashfiles /etc/bashfiles
-	cp -r cshfiles /etc/cshfiles
-	cp -r dashfiles /etc/dashfiles
+	mkdir /etc/shellchooser
+	cp -r bashfiles /etc/shellchooser/bashfiles
+	cp -r cshfiles /etc/shellchooser/cshfiles
+	cp -r dashfiles /etc/shellchooser/dashfiles
 
 uninstall:
 	rm /bin/shellchooser.sh
-	rm -rf /etc/bashfiles
-	rm -rf /etc/cshfiles
-	rm -rf /etc/dashfiles
+	rm -rf /etc/shellchooser

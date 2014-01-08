@@ -32,8 +32,9 @@ Which="/usr/bin/which"
 Binaries=(clear cp printf cat mktemp rm tail dialog diff)
 
 # Variables
-BashFiles="/etc/shellchooser/bash"
-CshFiles="/etc/shellchooser/csh"
+BashFiles="/etc/shellchooser/bashfiles"
+CshFiles="/etc/shellchooser/cshfiles"
+DashFiles="/etc/shellchooser/dashfiles"
 
 
 ### Functions ###
@@ -140,7 +141,7 @@ if [ $? -ne 0 ]; then
 	echo "Aborting..."
 	exit 1
 fi
-#check_env
+check_env
 $Clear
 $Shell
 
