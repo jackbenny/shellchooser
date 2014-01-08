@@ -26,12 +26,15 @@ Author="Jack-Benny Persson (jack-benny@cyberinfo.se)"
 
 # Binaries
 Which="/usr/bin/which"
+
 # Binaries entered in the list will be avalible to the script as variables with
 # the first letter uppercase
 Binaries=(clear cp printf cat mktemp rm tail dialog diff)
 
 # Variables
-Skel="/etc/skel"
+BashFiles="/etc/shellchooser/bash"
+CshFiles="/etc/shellchooser/csh"
+
 
 ### Functions ###
 
@@ -57,7 +60,8 @@ print_help()
 	EOT
 }
 
-# Create our chooser dialog
+# Create our chooser dialog and return 1 if user aborted the dialog (if the
+# the user hits esc or cancel). Otherwise return 0.
 chooser()
 {
 	Temp=`$Mktemp -t chooser.XXXX`
@@ -70,22 +74,32 @@ chooser()
 	Shell=`$Cat $Temp`
 }
 
-# Check out environment variables
+# Check out environment variables and if they have changed, replace
+# them them with the original files
 check_env()
 {
 	case $Shell in
 	"/bin/bash")
-		$Diff ${HOME}/.profile ${Skel}/.profile &> /dev/null
+		$Diff ${HOME}/.profile ${BashFiles}/.profile &> /dev/null
 		if [ $? -ne 0 ]; then
-			$Cp ${Skel}/.profile ${HOME}
+			$Cp ${BashFiles}/.profile ${HOME}
 		fi
-		$Diff ${HOME}/.bashrc ${Skel}/.bashrc &> /dev/null
+		$Diff ${HOME}/.bashrc ${BashFiles}/.bashrc &> /dev/null
 		if [ $? -ne 0 ]; then
-			$Cp ${Skel}/.bashrc ${HOME}
+			$Cp ${BashFiles}/.bashrc ${HOME}
 		fi
 		;;
 	"/bin/csh")
+		$Diff ${HOME}/.cshrc ${CshFiles}/.cshrc &> /dev/null
+		if [ $? -ne 0 ]; then
+			$Cp ${CshFiles}/.cshrc ${HOME}
+		fi
 		;;
+	"/bin/dash")
+		$Diff ${HOME}/.profile ${DashFiles}./profile
+		if [ $? -ne 0 ]; then
+			$Cp ${DashFiles}/.profile ${HOME}
+		fi
 	esac
 }
 
