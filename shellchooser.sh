@@ -34,7 +34,7 @@ Binaries=(clear cp printf cat mktemp rm tail dialog diff)
 # Variables
 BashFiles="/etc/shellchooser/bashfiles"
 CshFiles="/etc/shellchooser/cshfiles"
-DashFiles="/etc/shellchooser/dashfiles"
+DashFiles="/etc/shellchooser/ashfiles"
 
 
 ### Functions ###
@@ -68,7 +68,7 @@ chooser()
 	Temp=`$Mktemp -t chooser.XXXX`
 	$Dialog --backtitle "Shell Chooser" \
 	--menu "Choose your shell" 10 60 3 "/bin/bash" Bash \
-	"/bin/dash" Dash "/bin/csh" Csh 2> $Temp
+	"/bin/ash" Ash "/bin/csh" Csh 2> $Temp
 	if [ $? -ne 0 ]; then
 		return 1
 	fi
@@ -81,25 +81,25 @@ check_env()
 {
 	case $Shell in
 	"/bin/bash")
-		$Diff ${HOME}/.profile ${BashFiles}/.profile &> /dev/null
+		$Diff ${HOME}/.profile ${BashFiles}/profile &> /dev/null
 		if [ $? -ne 0 ]; then
-			$Cp ${BashFiles}/.profile ${HOME}
+			$Cp ${BashFiles}/profile ${HOME}/.profile
 		fi
-		$Diff ${HOME}/.bashrc ${BashFiles}/.bashrc &> /dev/null
+		$Diff ${HOME}/.bashrc ${BashFiles}/bashrc &> /dev/null
 		if [ $? -ne 0 ]; then
-			$Cp ${BashFiles}/.bashrc ${HOME}
+			$Cp ${BashFiles}/bashrc ${HOME}/.bashrc
 		fi
 		;;
 	"/bin/csh")
-		$Diff ${HOME}/.cshrc ${CshFiles}/.cshrc &> /dev/null
+		$Diff ${HOME}/.cshrc ${CshFiles}/cshrc &> /dev/null
 		if [ $? -ne 0 ]; then
-			$Cp ${CshFiles}/.cshrc ${HOME}
+			$Cp ${CshFiles}/cshrc ${HOME}/.cshrc
 		fi
 		;;
-	"/bin/dash")
-		$Diff ${HOME}/.profile ${DashFiles}./profile
+	"/bin/ash")
+		$Diff ${HOME}/.profile ${AshFiles}/profile
 		if [ $? -ne 0 ]; then
-			$Cp ${DashFiles}/.profile ${HOME}
+			$Cp ${AshFiles}/profile ${HOME}/.profile
 		fi
 	esac
 }

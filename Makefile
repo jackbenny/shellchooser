@@ -1,5 +1,5 @@
-FILES=shellchooser.sh bashfiles/.profile bashfiles/.bashrc cshfiles/.cshrc \
-dashfiles/.profile
+FILES=shellchooser.sh bashfiles/profile bashfiles/bashrc cshfiles/cshrc \
+ashfiles/profile
 
 shellchooser: $(FILES)
 	$(info Use 'make install' to install shellchooser on your system)
@@ -12,7 +12,7 @@ install: $(FILES)
 	mkdir /etc/shellchooser
 	cp -r bashfiles /etc/shellchooser/bashfiles
 	cp -r cshfiles /etc/shellchooser/cshfiles
-	cp -r dashfiles /etc/shellchooser/dashfiles
+	cp -r ashfiles /etc/shellchooser/ashfiles
 
 uninstall:
 	rm /bin/shellchooser.sh
