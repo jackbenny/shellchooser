@@ -1,6 +1,6 @@
 FILES=shellchooser.sh bashfiles/profile bashfiles/bashrc cshfiles/cshrc \
 ashfiles/profile
-SHELLS=/bin/ash /bin/bash /bin/csh /bin/kalle
+SHELLS=/bin/ash /bin/bash /bin/csh
 
 shellchooser: $(FILES)
 	$(info Use 'make install' to install shellchooser on your system.)
