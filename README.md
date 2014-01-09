@@ -29,3 +29,9 @@ shells your system have installed (and which shells you should have installed).
 
 ### OpenSuSE ###
 `zypper install <shell>`
+
+## Specifications ##
+Two simple flowcharts shows how this script is built, what it does and which
+files are installed/uninstalled with Makefile.
+The two flowcharts resides in this directory and are called
+flowchart\_makefile.png and flowchart\_shellchooser.png.
