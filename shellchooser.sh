@@ -145,5 +145,8 @@ check_env
 $Clear
 $Shell
 
+# Clean up
+$Rm $Temp
+
 
 exit 0
