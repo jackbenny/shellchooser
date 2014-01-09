@@ -13,7 +13,9 @@ install: $(FILES)
 	cp -r bashfiles /etc/shellchooser/bashfiles
 	cp -r cshfiles /etc/shellchooser/cshfiles
 	cp -r ashfiles /etc/shellchooser/ashfiles
+	echo "/bin/shellchooser.sh" >> /etc/shells
 
 uninstall:
 	rm /bin/shellchooser.sh
 	rm -rf /etc/shellchooser
+	sed -i '/shellchooser.sh/d' /etc/shells
